@@ -181,8 +181,14 @@
         <Component class="javax.swing.JTextField" name="txtape">
         </Component>
         <Component class="javax.swing.JTextField" name="txtdir">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtdirKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txttel">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txttelKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtced">
           <Events>
@@ -193,6 +199,7 @@
         <Component class="javax.swing.JTextField" name="txtnombre">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtnombreActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtnombreKeyTyped"/>
           </Events>
         </Component>
       </SubComponents>

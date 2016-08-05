@@ -1,5 +1,6 @@
 package interfaces;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,6 +92,23 @@ public class FrClientes extends javax.swing.JFrame {
       
         return verifica;
     }
+     public void keyTyped(KeyEvent ke) { 
+             
+             
+             char c=ke.getKeyChar(); 
+             
+         
+          if(Character.isDigit(c)) { 
+              getToolkit().beep(); 
+               
+              ke.consume(); 
+               
+          JOptionPane.showMessageDialog(null, "solo letras");
+               
+          } 
+             
+                     
+        } 
     private void botonactualizar() {
         conexion cc = new conexion();
         Connection cn = cc.conectar();
@@ -173,6 +191,18 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel5.setText("TELEFONO");
 
+        txtdir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtdirKeyTyped(evt);
+            }
+        });
+
+        txttel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttelKeyTyped(evt);
+            }
+        });
+
         txtced.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtcedActionPerformed(evt);
@@ -187,6 +217,11 @@ public class FrClientes extends javax.swing.JFrame {
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnombreActionPerformed(evt);
+            }
+        });
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
             }
         });
 
@@ -530,6 +565,26 @@ DefaultTableModel modelo;
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnsalirActionPerformed
+
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+         char c=evt.getKeyChar(); 
+          if(Character.isDigit(c)) { 
+              getToolkit().beep();  
+              evt.consume();     
+          } 
+    }//GEN-LAST:event_txtnombreKeyTyped
+
+    private void txtdirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdirKeyTyped
+          
+    }//GEN-LAST:event_txtdirKeyTyped
+
+    private void txttelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttelKeyTyped
+        char c=evt.getKeyChar(); 
+          if(Character.isLetter(c)) { 
+              getToolkit().beep(); 
+              evt.consume(); 
+          }
+    }//GEN-LAST:event_txttelKeyTyped
 
     /**
      * @param args the command line arguments
