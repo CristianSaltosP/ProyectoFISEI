@@ -191,6 +191,12 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel5.setText("TELEFONO");
 
+        txtape.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapeKeyTyped(evt);
+            }
+        });
+
         txtdir.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtdirKeyTyped(evt);
@@ -585,6 +591,14 @@ DefaultTableModel modelo;
               evt.consume(); 
           }
     }//GEN-LAST:event_txttelKeyTyped
+
+    private void txtapeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapeKeyTyped
+char c=evt.getKeyChar(); 
+          if(Character.isDigit(c)) { 
+              getToolkit().beep();  
+              evt.consume();     
+          }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtapeKeyTyped
 
     /**
      * @param args the command line arguments
