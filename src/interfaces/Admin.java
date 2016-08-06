@@ -25,13 +25,13 @@ public class Admin extends javax.swing.JFrame {
         
 //        jPanel1.setBorder(new imagenfondo());
     }
-@Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("Imagenes/logo.png"));
-        return retValue;
-
-    }
+//@Override
+//    public Image getIconImage() {
+//        Image retValue = Toolkit.getDefaultToolkit().
+//                getImage(ClassLoader.getSystemResource("Imagenes/logo.png"));
+//        return retValue;
+//
+//    }
     private void mostrarPasswd() {
         //String ver=jpfPasswd.getText();
         if (jchbxVer.isSelected()) {
@@ -109,7 +109,6 @@ public class Admin extends javax.swing.JFrame {
         jpfPasswd = new javax.swing.JPasswordField();
         jchbxVer = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -186,19 +185,15 @@ public class Admin extends javax.swing.JFrame {
 
         jPanel2.setOpaque(false);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/login.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 136, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -384,7 +379,6 @@ new Menu().setVisible(true);//        ok();
     private javax.swing.JButton btningresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JCheckBox jchbxVer;
