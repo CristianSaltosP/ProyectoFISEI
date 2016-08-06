@@ -22,18 +22,18 @@ public class Menu extends javax.swing.JFrame {
 
     public Menu() {
         initComponents();
-        jDesktopPane1.setBorder(new imagenfondo());
+      // jDesktopPane1.setBorder(new imagenfondo());
         this.setExtendedState(MAXIMIZED_BOTH);
 
     }
 
 //@Override
-    @Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().
-                getImage(ClassLoader.getSystemResource("Imagenes/logo.png"));
-        return retValue;
-    }
+//    @Override
+//    public Image getIconImage() {
+//        Image retValue = Toolkit.getDefaultToolkit().
+//                getImage(ClassLoader.getSystemResource("Imagenes/logo.png"));
+//        return retValue;
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
