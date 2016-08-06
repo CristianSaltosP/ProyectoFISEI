@@ -62,9 +62,7 @@ public class FrClientes extends javax.swing.JFrame {
         ced = ced.replace('-', ' ').replaceAll(" ", "");
         System.out.println("ced1: " + ced);
         return ced;
-    }
-    
-    
+    } 
     
     private boolean verifCedula(String ced) {
         boolean verifica = false;
@@ -499,7 +497,6 @@ private void botonnuevo(){
                     JOptionPane.showMessageDialog(null, "REGISTRO BORRADO");
                     limpiartxt();
                     cargartabclientes("");
-                   
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
@@ -595,12 +592,10 @@ DefaultTableModel modelo;
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
         botonactualizar();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
         borrar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
