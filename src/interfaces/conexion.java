@@ -13,18 +13,18 @@ public class conexion {
 //            connect = DriverManager.getConnection(basedatos, "proyecto", "p12345");
 
             conectado = true;
-                System.out.println(conectado);
+//                System.out.println(conectado);
 
         } catch (Exception e) {
             conectado = false;
             JOptionPane.showMessageDialog(null, e+"conexion fallida");
         }
-        System.out.println(conectado);
+//        System.out.println(conectado);
         return connect;
     }
     public static void main(String[] args) {
        conexion cc=new conexion();
         Connection cn=cc.conectar();
-        System.out.println(new conexion().conectar());
+//        System.out.println(new conexion().conectar());
     }
 }
