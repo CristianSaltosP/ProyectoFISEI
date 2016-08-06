@@ -16,13 +16,12 @@ import javax.swing.JPasswordField;
 public class Admin extends javax.swing.JFrame {
 
 //    Utilidades md5 = new Utilidades();
-
     public Admin() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtmensaje.setVisible(false);
         jpfPasswd.setEchoChar('•');
-        
+
 //        jPanel1.setBorder(new imagenfondo());
     }
 //@Override
@@ -32,6 +31,7 @@ public class Admin extends javax.swing.JFrame {
 //        return retValue;
 //
 //    }
+
     private void mostrarPasswd() {
         //String ver=jpfPasswd.getText();
         if (jchbxVer.isSelected()) {
@@ -51,44 +51,56 @@ public class Admin extends javax.swing.JFrame {
         return pass;
     }
 
-//    private void ok() {
-//        try {
-//            Conexion cc = new Conexion();
-//            Connection cn = cc.conectar();
-//            String sql = "";
-//            sql = "select * from usuarios";
-//            Statement psd = cn.createStatement();
-//            ResultSet rs = psd.executeQuery(sql);
-//            String var1 = txtusuario.getText();
-//            //String var2=jpfPasswd.getText();
-//            String var2 = md5.Encriptar(jpfPasswd.getText());
-//            while (rs.next()) {
-//                String var3 = rs.getString("usu_cedula");
-//                String var4 = rs.getString("usu_clave");
-//                if ((var1.equals(var3)) && (var2.equals(var4))) {
-//                    if (rs.getString("usu_perfil").equals("ADMINISTRADOR")) {
-//                        Menu mn = new Menu();
-//                        mn.setVisible(true);
-//                        this.dispose();
-//                    }
-//                    if (rs.getString("usu_perfil").equals("SUPERVISOR")) {
-//                        Menu mn = new Menu();
-//                        mn.setVisible(true);
-////                        mn.mnreportes.setEnabled(false);
-//                        mn.jMenuItem3.setEnabled(false);
-//
-//                        this.dispose();
-//                    }
-//                } else {
-//                    txtmensaje.setVisible(true);
-//                    txtusuario.setText("");
-//                    jpfPasswd.setText("");
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, ex);
-//        }
-//    }
+    private void ok() {
+        try {
+            conexion cc = new conexion();
+            Connection cn = cc.conectar();
+            String sql = "";
+            sql = "select * from cajeros";
+            Statement psd = cn.createStatement();
+            ResultSet rs = psd.executeQuery(sql);
+            String var1 = txtusuario.getText();
+            String var2 = getPasswd(jpfPasswd);//jpfPasswd.getText();
+            System.out.println("VAR1: " + var1);
+            System.out.println("VAR2: " + var2);
+            //String var2 = md5.Encriptar(jpfPasswd.getText());
+            String var3, var4, p;
+            while (rs.next()) {
+                var3 = rs.getString("NOMBRE_CAJ");
+                System.out.println(var3);
+                var4 = rs.getString("CI_CAJ");
+                System.out.println("VAR4:"+var4);
+                p = rs.getString("PER_CAJ");
+                System.out.println(p);
+                
+                if (var1.equals(var3)  &&var2.equals(var4)) {
+                    System.out.println("correcto hasta aqui");
+                    System.out.println(p);
+                    if (p.equals("ADMINISTRADOR")) {
+
+                        Menu mn = new Menu();
+                        mn.setVisible(true);
+                        this.dispose();
+                    }
+                    if (p.equals("CAJERO(A)")) {
+                        Menu mn = new Menu();
+                        mn.setVisible(true);
+//                        mn.mnreportes.setEnabled(false);
+                        mn.jMenuItem3.setEnabled(false);
+                        mn.jMenu1.setEnabled(false);
+
+                        this.dispose();
+                    }
+                } else {
+                    txtmensaje.setVisible(true);
+                    txtusuario.setText("");
+                    jpfPasswd.setText("");
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -274,7 +286,9 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btningresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btningresarActionPerformed
-new Menu().setVisible(true);//        ok();
+
+        ok();
+        //new Menu().setVisible(true);
     }//GEN-LAST:event_btningresarActionPerformed
 
     private void jchbxVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchbxVerActionPerformed
@@ -310,16 +324,17 @@ new Menu().setVisible(true);//        ok();
     private void btncancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncancelarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btncancelarMouseClicked
-  private void soloNumeros(java.awt.event.KeyEvent evt) {                                    
+    private void soloNumeros(java.awt.event.KeyEvent evt) {
         char c;
         c = evt.getKeyChar();
         if (c < '0' || c > '9') {
             getToolkit().beep();
             evt.consume();
 //            JOptionPane.showMessageDialog(null, "Ingresa Solo Numeros");
-        }}
+        }
+    }
     private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
-       soloNumeros(evt);
+        //soloNumeros(evt);
     }//GEN-LAST:event_txtusuarioKeyTyped
 
     private void txtusuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtusuarioFocusGained
@@ -337,6 +352,12 @@ new Menu().setVisible(true);//        ok();
 //        }
 //    }
     private void txtusuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtusuarioFocusLost
+String d=jpfPasswd.getText();
+Integer t=d.length();
+        if (t!=10) {
+            System.out.println("incorecto");
+        }
+
 //        verifUser(); // TODO add your handling code here:
     }//GEN-LAST:event_txtusuarioFocusLost
 
