@@ -25,6 +25,68 @@ public class FrClientes extends javax.swing.JFrame {
         cargartabclientes("");
         cargarDatos();
     }
+    
+    private String getCed(String ced) {
+        System.out.println("CED: " + ced);
+        ced = ced.replace('-', ' ').replaceAll(" ", "");
+        System.out.println("ced1: " + ced);
+        return ced;
+    }
+    
+    
+    
+    private boolean verifCedula(String ced) {
+        boolean verifica = false;
+        int n = ced.length();
+        int sumPar = 0, sumaImpar = 0, rpar, rimpar, sumTotal, deceSup, nVerif;
+        String convn;
+        if (n < 10 || n > 10) {
+//            verifica = false;
+//            JOptionPane.showMessageDialog(null, "La cédula debe tener 10 digitos");
+//            System.out.println("cedula incorrecta");
+        } else {
+            String a = String.valueOf(ced.charAt(9));
+            int nVerificador = Integer.valueOf(a);
+//        System.out.println("numero verificador: "+nVerificador);
+            for (int i = 0; i < 10; i += 2) {
+                convn = String.valueOf(ced.charAt(i));
+//                System.out.println("numero: "+convn);
+                rpar = Integer.valueOf(convn) * 2;
+//                System.out.println("rpar*2: "+rpar);
+                if (rpar >= 10) {
+                    rpar = rpar - 9;
+                }
+                sumPar += rpar;
+            }
+//            System.out.println("suma par: "+sumPar);
+            for (int i = 1; i < 9; i += 2) {
+                convn = String.valueOf(ced.charAt(i));
+//                System.out.println("numero: "+convn);
+                rimpar = Integer.valueOf(convn);
+                sumaImpar += rimpar;
+            }
+//            System.out.println("suma impar: "+sumaImpar);
+            sumTotal = sumPar + sumaImpar;
+//            System.out.println("suma total: "+sumTotal);
+            deceSup = ((int) sumTotal / 10) * 10 + 10;
+            nVerif = deceSup - sumTotal;
+//            System.out.println("num v: " + nVerif);
+//            System.out.println(deceSup);
+            if (nVerif == nVerificador || nVerif == 10) {
+                verifica = true;
+                //JOptionPane.showMessageDialog(null, "cedula correcta");
+            }
+        }
+        if (!verifica) {
+            JOptionPane.showMessageDialog(null, "Cedula incorrecta, Ingrese nueamente");
+        }
+        //        System.out.println("cedula es; " + verifica);
+        return verifica;
+    }
+    
+    
+    
+    
      private void cargarDatos() {
         tabclientes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -41,57 +103,8 @@ public class FrClientes extends javax.swing.JFrame {
             }
         });
     } 
-       private String getCed(String ced) {
-        System.out.println("CED: " + ced);
-        ced = ced.replace('-', ' ').replaceAll(" ", "");
-        System.out.println("ced1: " + ced);
-        return ced;
-    }
-    private boolean verifCedula(String ced) {
-        boolean verifica = false;
-        int n = ced.length();
-        int sumPar = 0, sumaImpar = 0, rpar, rimpar, sumTotal, deceSup, nVerif;
-        String convn;
-        if (n < 10 || n > 10) {
-
-        } else {
-            String a = String.valueOf(ced.charAt(9));
-            int nVerificador = Integer.valueOf(a);
-
-            for (int i = 0; i < 10; i += 2) {
-                convn = String.valueOf(ced.charAt(i));
-
-                rpar = Integer.valueOf(convn) * 2;
-
-                if (rpar >= 10) {
-                    rpar = rpar - 9;
-                }
-                sumPar += rpar;
-            }
-
-            for (int i = 1; i < 9; i += 2) {
-                convn = String.valueOf(ced.charAt(i));
-
-                rimpar = Integer.valueOf(convn);
-                sumaImpar += rimpar;
-            }
-
-            sumTotal = sumPar + sumaImpar;
-
-            deceSup = ((int) sumTotal / 10) * 10 + 10;
-            nVerif = deceSup - sumTotal;
-
-            if (nVerif == nVerificador || nVerif == 10) {
-                verifica = true;
-            
-            }
-        }
-        if (!verifica) {
-            JOptionPane.showMessageDialog(null, "Cedula incorrecta, Ingrese nueamente");
-        }
-      
-        return verifica;
-    }
+       
+    
      public void keyTyped(KeyEvent ke) { 
              
              
@@ -131,6 +144,17 @@ public class FrClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }        
     }
+    
+    
+     void focoCedula(){
+        String ced = txtced.getText();
+        String ced1 = getCed(ced);
+
+        if (!verifCedula(ced1)) {
+            txtced.setText("");
+            txtced.requestFocus();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -152,8 +176,8 @@ public class FrClientes extends javax.swing.JFrame {
         txtape = new javax.swing.JTextField();
         txtdir = new javax.swing.JTextField();
         txttel = new javax.swing.JTextField();
-        txtced = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
+        txtced = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
@@ -209,17 +233,6 @@ public class FrClientes extends javax.swing.JFrame {
             }
         });
 
-        txtced.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtcedActionPerformed(evt);
-            }
-        });
-        txtced.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtcedFocusLost(evt);
-            }
-        });
-
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnombreActionPerformed(evt);
@@ -228,6 +241,17 @@ public class FrClientes extends javax.swing.JFrame {
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtnombreKeyTyped(evt);
+            }
+        });
+
+        try {
+            txtced.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########-#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtced.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtcedFocusLost(evt);
             }
         });
 
@@ -248,8 +272,8 @@ public class FrClientes extends javax.swing.JFrame {
                     .addComponent(txtdir)
                     .addComponent(txttel, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(txtape)
-                    .addComponent(txtced)
-                    .addComponent(txtnombre))
+                    .addComponent(txtnombre)
+                    .addComponent(txtced, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -257,17 +281,14 @@ public class FrClientes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtced, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(43, 43, 43)
                         .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -507,8 +528,14 @@ DefaultTableModel modelo;
             Connection cn = cc.conectar();
 
             String CI_CLI, NOM_CLI, APE_CLI, DIR_CLI, TEL_CLI;
-
-            CI_CLI = txtced.getText();//.trim().replace('-',' ' ).replaceAll(" ", "");
+            String ced = txtced.getText().trim();
+            String cedVer = getCed(ced);
+            
+            
+            CI_CLI = cedVer;//.trim().replace('-',' ' ).replaceAll(" ", "");
+            
+            
+//            CI_CLI = txtced.getText();//.trim().replace('-',' ' ).replaceAll(" ", "");
             NOM_CLI = txtnombre.getText();
             APE_CLI = txtape.getText();
             DIR_CLI = txtdir.getText();
@@ -532,22 +559,9 @@ DefaultTableModel modelo;
         }
     }
 
-    private void txtcedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtcedActionPerformed
-
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreActionPerformed
-
-    private void txtcedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcedFocusLost
-       String ced=txtced.getText();
-        String ced1=getCed(ced);
-        if (!verifCedula(ced1)) {
-          txtced.setText("");
-           txtced.requestFocus();
-        }
-    }//GEN-LAST:event_txtcedFocusLost
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         //        desbloqueartxt();
@@ -599,6 +613,10 @@ char c=evt.getKeyChar();
               evt.consume();     
           }        // TODO add your handling code here:
     }//GEN-LAST:event_txtapeKeyTyped
+
+    private void txtcedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcedFocusLost
+        focoCedula();
+    }//GEN-LAST:event_txtcedFocusLost
 
     /**
      * @param args the command line arguments
@@ -656,7 +674,7 @@ char c=evt.getKeyChar();
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tabclientes;
     private javax.swing.JTextField txtape;
-    private javax.swing.JTextField txtced;
+    private javax.swing.JFormattedTextField txtced;
     private javax.swing.JTextField txtdir;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txttel;
