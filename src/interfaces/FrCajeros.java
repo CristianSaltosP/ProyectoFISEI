@@ -292,7 +292,7 @@ public class FrCajeros extends javax.swing.JFrame {
 
         jLabel5.setText("PERFIL");
 
-        jcbPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Perfil", "ADMINISTRADOR", "CAJERO(A)" }));
+        jcbPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Perfil", "ADMINISTRADOR", "CAJERO" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
