@@ -95,21 +95,23 @@ public class FrCajeros extends javax.swing.JFrame {
             conexion cc = new conexion();
             Connection cn = cc.conectar();
 
-            String CI_CAJ, NOMBRE_CAJ, APELLIDO_CAJ, DIR_CAJ;
+            String CI_CAJ, NOMBRE_CAJ, APELLIDO_CAJ, DIR_CAJ, PER_CAJ;
 
             CI_CAJ = txtced.getText();//.trim().replace('-',' ' ).replaceAll(" ", "");
             NOMBRE_CAJ = txtnombre.getText();
             APELLIDO_CAJ = txtape.getText();
             DIR_CAJ = txtdir.getText();
+            PER_CAJ= String.valueOf(jcbPerfil.getSelectedItem());
+            
 
-            String sql = "insert into CAJEROS(CI_CAJ,NOMBRE_CAJ,APELLIDO_CAJ,DIR_CAJ)VALUES(?,?,?,?)";
+            String sql = "insert into CAJEROS(CI_CAJ,NOMBRE_CAJ,APELLIDO_CAJ,DIR_CAJ, PER_CAJ)VALUES(?,?,?,?,?)";
             try {
                 PreparedStatement psd = cn.prepareStatement(sql);
                 psd.setString(1, CI_CAJ);
                 psd.setString(2, NOMBRE_CAJ);
                 psd.setString(3, APELLIDO_CAJ);
                 psd.setString(4, DIR_CAJ);
-
+                psd.setString(5, PER_CAJ);
                 int n = psd.executeUpdate();
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Se inserto correctamente");
@@ -216,6 +218,8 @@ public class FrCajeros extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jcbPerfil = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -283,6 +287,10 @@ public class FrCajeros extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Registro Cajeros");
 
+        jLabel5.setText("PERFIL");
+
+        jcbPerfil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione Perfil", "ADMINISTRADOR", "CAJERO(A)" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -296,10 +304,6 @@ public class FrCajeros extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1)
                                             .addComponent(jLabel2)
@@ -308,7 +312,18 @@ public class FrCajeros extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtnombre)
                                             .addComponent(txtape)
-                                            .addComponent(txtced, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))))
+                                            .addComponent(txtced, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel5)
+                                                .addGap(33, 33, 33)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jcbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(37, 37, 37)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -351,7 +366,10 @@ public class FrCajeros extends javax.swing.JFrame {
                         .addComponent(jButton3))
                     .addComponent(jLabel4))
                 .addGap(9, 9, 9)
-                .addComponent(jButton2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel5)
+                    .addComponent(jcbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnsalir)
                 .addGap(37, 37, 37)
@@ -451,9 +469,11 @@ public class FrCajeros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox jcbPerfil;
     private javax.swing.JTable tblcajeros;
     private javax.swing.JTextField txtape;
     private javax.swing.JTextField txtced;
