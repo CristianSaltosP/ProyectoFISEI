@@ -43,7 +43,7 @@ public class FrCajeros extends javax.swing.JFrame {
                     txtnombre.setText(tblcajeros.getValueAt(fila, 1).toString().trim());
                     txtape.setText(tblcajeros.getValueAt(fila, 2).toString().trim());
                     txtdir.setText(tblcajeros.getValueAt(fila, 3).toString());
-
+                    jcbPerfil.setSelectedItem(tblcajeros.getValueAt(fila, 4).toString());
                 }
             }
         });
@@ -52,8 +52,8 @@ public class FrCajeros extends javax.swing.JFrame {
     DefaultTableModel modelo;
 
     public void cargartabcajeros(String Dato) {
-        String titulos[] = {"CEDULA", "NOMBRE", "APELLIDO", "DIRECCION"};
-        String registros[] = new String[4];
+        String titulos[] = {"CEDULA", "NOMBRE", "APELLIDO", "DIRECCION", "PERFIL"};
+        String registros[] = new String[5];
         modelo = new DefaultTableModel(null, titulos);
 
         conexion cc = new conexion();
@@ -68,6 +68,7 @@ public class FrCajeros extends javax.swing.JFrame {
                 registros[1] = rs.getString("NOMBRE_CAJ");
                 registros[2] = rs.getString("APELLIDO_CAJ");
                 registros[3] = rs.getString("DIR_CAJ");
+                registros[4] = rs.getString("PER_CAJ");
 
                 modelo.addRow(registros);
             }
@@ -79,7 +80,7 @@ public class FrCajeros extends javax.swing.JFrame {
 
     private void guardar() {
         if (txtced.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar laced");
+            JOptionPane.showMessageDialog(null, "Debe ingresar la cedula");
             txtced.requestFocus();
         } else if (txtnombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar nombre");
@@ -88,8 +89,11 @@ public class FrCajeros extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe ingresar apellido");
             txtape.requestFocus();
         } else if (txtdir.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar el dir");
+            JOptionPane.showMessageDialog(null, "Debe ingresar el direccion");
             txtdir.requestFocus();
+        } else if (jcbPerfil.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el perfil");
+            jcbPerfil.requestFocus();
         } else {
 
             conexion cc = new conexion();
@@ -101,8 +105,7 @@ public class FrCajeros extends javax.swing.JFrame {
             NOMBRE_CAJ = txtnombre.getText();
             APELLIDO_CAJ = txtape.getText();
             DIR_CAJ = txtdir.getText();
-            PER_CAJ= String.valueOf(jcbPerfil.getSelectedItem());
-            
+            PER_CAJ = String.valueOf(jcbPerfil.getSelectedItem());
 
             String sql = "insert into CAJEROS(CI_CAJ,NOMBRE_CAJ,APELLIDO_CAJ,DIR_CAJ, PER_CAJ)VALUES(?,?,?,?,?)";
             try {
@@ -115,7 +118,7 @@ public class FrCajeros extends javax.swing.JFrame {
                 int n = psd.executeUpdate();
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "Se inserto correctamente");
-
+                    cargartabcajeros("");
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
